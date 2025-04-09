@@ -5,25 +5,29 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField]
-    private float _speed = 5f; // Speed of the player
+    private float _speed = 5f;
 
-    // Start is called before the first frame update
     private void Start()
     {
         // Reset position to origin
         transform.position = Vector3.zero;
     }
 
-    // Update is called once per frame
     private void Update()
     {
         CalculateMovement();
     }
 
-    // Handle player movement calculations
     private void CalculateMovement()
     {
-        // Move the player based on speed and delta time
-        transform.Translate(Vector3.right * _speed * Time.deltaTime);
+        // Get input from keyboard
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
+
+        // Create direction vector
+        Vector3 direction = new Vector3(horizontalInput, verticalInput, 0);
+
+        // Move the player based on input, speed and delta time
+        transform.Translate(direction * _speed * Time.deltaTime);
     }
 }

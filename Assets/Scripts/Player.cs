@@ -2,10 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Controls player movement and screen boundaries
+/// </summary>
 public class Player : MonoBehaviour
 {
-    [SerializeField]
-    private float _speed = 5f;
+    [Header("Movement Settings")]
+    [SerializeField] private float _speed = 5f;
+
+    [Header("Boundary Settings")]
+    [SerializeField] private float _topBoundary = 0f;
+    [SerializeField] private float _bottomBoundary = -3.8f;
+    [SerializeField] private float _horizontalBoundary = 11.3f;
 
     private void Start()
     {
@@ -15,10 +23,14 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        CalculateMovement();
+        HandleMovement();
+        RestrictPosition();
     }
 
-    private void CalculateMovement()
+    /// <summary>
+    /// Processes player input and applies movement
+    /// </summary>
+    private void HandleMovement()
     {
         // Get input from keyboard
         float horizontalInput = Input.GetAxis("Horizontal");
@@ -29,25 +41,25 @@ public class Player : MonoBehaviour
 
         // Move the player based on input, speed and delta time
         transform.Translate(direction * _speed * Time.deltaTime);
+    }
 
-        // Clamp the player's position to the screen bounds
-        if (transform.position.y >= 0)
+    /// <summary>
+    /// Restricts player position using clamping and wrapping
+    /// </summary>
+    private void RestrictPosition()
+    {
+        Vector3 position = transform.position;
+
+        // Clamp vertical position using Mathf.Clamp
+        position.y = Mathf.Clamp(position.y, _bottomBoundary, _topBoundary);
+
+        // Handle horizontal wrapping
+        if (Mathf.Abs(position.x) > _horizontalBoundary)
         {
-            transform.position = new Vector3(transform.position.x, 0, 0);
-        }
-        else if (transform.position.y <= -3.8f)
-        {
-            transform.position = new Vector3(transform.position.x, -3.8f, 0);
+            position.x = -Mathf.Sign(position.x) * _horizontalBoundary;
         }
 
-        // Wrap the player around the screen
-        if (transform.position.x > 11.3f)
-        {
-            transform.position = new Vector3(-11.3f, transform.position.y, 0);
-        }
-        else if (transform.position.x < -11.3f)
-        {
-            transform.position = new Vector3(11.3f, transform.position.y, 0);
-        }
+        // Apply modified position
+        transform.position = position;
     }
 }

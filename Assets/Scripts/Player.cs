@@ -15,7 +15,8 @@ public class Player : MonoBehaviour
     [SerializeField] private float _bottomBoundary = -3.8f;
     [SerializeField] private float _horizontalBoundary = 11.3f;
     [SerializeField] private GameObject _laserPrefab;
-
+    [SerializeField] private float _fireRate = 0.5f;
+    private float _nextFireTime = 0f;
     private void Start()
     {
         // Reset position to origin
@@ -26,17 +27,24 @@ public class Player : MonoBehaviour
     {
         HandleMovement();
         RestrictPosition();
+        FireLaser();
+    }
 
+    /// <summary>
+    /// Handles laser firing
+    /// </summary>
+    private void FireLaser()
+    {
         // Check for space key press to fire laser
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && Time.time > _nextFireTime)
         {
+            // Set next fire time
+            _nextFireTime = Time.time + _fireRate;
+            // Instantiate laser prefab
             Instantiate(_laserPrefab, transform.position + new Vector3(0, 0.8f, 0), Quaternion.identity);
         }
     }
 
-    /// <summary>
-    /// Processes player input and applies movement
-    /// </summary>
     private void HandleMovement()
     {
         // Get input from keyboard

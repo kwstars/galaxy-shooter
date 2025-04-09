@@ -244,7 +244,7 @@ MonoBehaviour:
   _topBoundary: 0
   _bottomBoundary: -3.8
   _horizontalBoundary: 11.3
-  laserPrefab: {fileID: 4250314063883859937, guid: f8eaca3858ddd994a9cabcf9883230ee, type: 3}
+  _laserPrefab: {fileID: 4250314063883859937, guid: f8eaca3858ddd994a9cabcf9883230ee, type: 3}
 --- !u!1 &266706532
 GameObject:
   m_ObjectHideFlags: 0

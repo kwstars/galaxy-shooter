@@ -15,7 +15,6 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
-        ResetPosition();
     }
 
     private void Update()

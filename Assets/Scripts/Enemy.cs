@@ -42,7 +42,7 @@ public class Enemy : MonoBehaviour
         transform.position = new Vector3(randomX, _topBoundary, 0);
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
@@ -54,13 +54,13 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void HandlePlayerCollision(Collider playerCollider)
+    private void HandlePlayerCollision(Collider2D playerCollider)
     {
         playerCollider.GetComponent<Player>()?.Damage();
         Destroy(gameObject);
     }
 
-    private void HandleLaserCollision(Collider laserCollider)
+    private void HandleLaserCollision(Collider2D laserCollider)
     {
         Destroy(laserCollider.gameObject);
         Destroy(gameObject);

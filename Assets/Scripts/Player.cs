@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject _laserPrefab;
     [SerializeField] private float _fireRate = 0.5f;
     private float _nextFireTime = 0f;
+    [SerializeField] private int _lives = 3;
     private void Start()
     {
         // Reset position to origin
@@ -76,5 +77,17 @@ public class Player : MonoBehaviour
 
         // Apply modified position
         transform.position = position;
+    }
+
+    /// <summary>
+    /// Handles player damage
+    /// </summary>
+    public void Damage()
+    {
+        _lives--;
+        if (_lives <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 }

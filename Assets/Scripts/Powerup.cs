@@ -43,7 +43,7 @@ public class Powerup : MonoBehaviour
                         Debug.Log("Speed Boost Activated");
                         break;
                     case 2:
-                        // player.ShieldActive();
+                        player.ShieldActive();
                         Debug.Log("Shield Activated");
                         break;
                     default:

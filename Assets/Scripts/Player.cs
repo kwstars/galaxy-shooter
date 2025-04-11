@@ -15,11 +15,14 @@ public class Player : MonoBehaviour
     [SerializeField] private float _bottomBoundary = -3.8f;
     [SerializeField] private float _horizontalBoundary = 11.3f;
     [SerializeField] private GameObject _laserPrefab;
+    [SerializeField] private GameObject _tripleShotPrefab;
     [SerializeField] private float _fireRate = 0.5f;
     private float _nextFireTime = 0f;
     [SerializeField] private int _lives = 3;
 
     private SpawnManager _spawnManager;
+
+    [SerializeField] private bool _isTripleShotActive = false;
 
     private void Start()
     {
@@ -47,10 +50,16 @@ public class Player : MonoBehaviour
         // Check for space key press to fire laser
         if (Input.GetKeyDown(KeyCode.Space) && Time.time > _nextFireTime)
         {
-            // Set next fire time
             _nextFireTime = Time.time + _fireRate;
-            // Instantiate laser prefab
-            Instantiate(_laserPrefab, transform.position + new Vector3(0, 0.8f, 0), Quaternion.identity);
+
+            if (_isTripleShotActive)
+            {
+                Instantiate(_tripleShotPrefab, transform.position + new Vector3(0, 1.05f, 0), Quaternion.identity);
+            }
+            else
+            {
+                Instantiate(_laserPrefab, transform.position + new Vector3(0, 1.05f, 0), Quaternion.identity);
+            }
         }
     }
 
@@ -98,5 +107,17 @@ public class Player : MonoBehaviour
             _spawnManager.OnPlayerDeath();
             Destroy(gameObject);
         }
+    }
+
+    public void TripleShotActive()
+    {
+        _isTripleShotActive = true;
+        StartCoroutine(TripleShotPowerDownRoutine());
+    }
+
+    private IEnumerator TripleShotPowerDownRoutine()
+    {
+        yield return new WaitForSeconds(5f);
+        _isTripleShotActive = false;
     }
 }

@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
 {
     [Header("Movement Settings")]
     [SerializeField] private float _speed = 5f;
+    [SerializeField] private float _speedMultiplier = 2f;
 
     [Header("Boundary Settings")]
     [SerializeField] private float _topBoundary = 0f;
@@ -23,6 +24,7 @@ public class Player : MonoBehaviour
     private SpawnManager _spawnManager;
 
     [SerializeField] private bool _isTripleShotActive = false;
+    [SerializeField] private bool _isSpeedBoostActive = false;
 
     private void Start()
     {
@@ -119,5 +121,19 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(5f);
         _isTripleShotActive = false;
+    }
+
+    public void SpeedBoostActive()
+    {
+        _isSpeedBoostActive = true;
+        _speed *= _speedMultiplier;
+        StartCoroutine(SpeedBoostPowerDownRoutine());
+    }
+
+    private IEnumerator SpeedBoostPowerDownRoutine()
+    {
+        yield return new WaitForSeconds(5f);
+        _isSpeedBoostActive = false;
+        _speed /= _speedMultiplier;
     }
 }

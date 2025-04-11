@@ -293,6 +293,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 5
+  _speedMultiplier: 2
   _topBoundary: 0
   _bottomBoundary: -3.8
   _horizontalBoundary: 11.3
@@ -301,6 +302,7 @@ MonoBehaviour:
   _fireRate: 0.15
   _lives: 3
   _isTripleShotActive: 0
+  _isSpeedBoostActive: 0
 --- !u!212 &1023903509
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -339,8 +341,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1890526261
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 1b4a8fdd39d3a45d0a9ee484ad6800ec, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -430,7 +432,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyPrefab: {fileID: 8544565146918035932, guid: f62079a440c0864459468af258ba68e1, type: 3}
   _enemyContainer: {fileID: 1076573147}
-  _tripleShotPrefab: {fileID: 4214324672169613497, guid: 4fe83d3f518fc5f4b835e93f58f34c4a, type: 3}
+  _powerUps:
+  - {fileID: 4214324672169613497, guid: 4fe83d3f518fc5f4b835e93f58f34c4a, type: 3}
+  - {fileID: 2456659436585652323, guid: 519069349b314f547bfda58fff40c03a, type: 3}
 --- !u!4 &1297616573
 Transform:
   m_ObjectHideFlags: 0
